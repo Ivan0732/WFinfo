@@ -32,14 +32,14 @@ namespace WFInfo
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        protected void RaisePropertyChanged([CallerMemberName]string propName = null)
+        protected void RaisePropertyChanged([CallerMemberName] string propName = null)
         {
             if (!string.IsNullOrWhiteSpace(propName) && (PropertyChanged != null))
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
         }
- 
+
     }
 
     public class SimpleCommand : ICommand
@@ -108,29 +108,19 @@ namespace WFInfo
 
         public bool topLevel = false;
 
-        private string _era;
-        public string Era
-        {
-            get { return _era; }
-            set { SetField(ref _era, value); }
-        }
+        public string Era { get; set; }
 
-        private int _sortNum = -1;
-        public int SortNum
-        {
-            get { return _sortNum; }
-            set { SetField(ref _sortNum, value); }
-        }
+        public int SortNum { get; set; } = -1;
 
         private string _name;
         public string Name
         {
-            get { return topLevel ? _era + " " + _name : _name; }
+            get { return topLevel ? Era + " " + _name : _name; }
             set { SetField(ref _name, value); }
         }
         public string Name_Sort
         {
-            get { return current != null ? current.SortNum + _era + " " + _name : SortNum + _name; }
+            get { return current != null ? current.SortNum + Era + " " + _name : SortNum + _name; }
             set { SetField(ref _name, value); }
         }
         public string EqmtName_Sort
@@ -139,61 +129,21 @@ namespace WFInfo
             set { SetField(ref _name, value); }
         }
 
-        private Brush _colorBrush = new SolidColorBrush(Color.FromRgb(177, 208, 217));
-        public Brush NameBrush
-        {
-            get { return _colorBrush; }
-            set { SetField(ref _colorBrush, value); }
-        }
+        public Brush NameBrush { get; set; } = new SolidColorBrush(Color.FromRgb(177, 208, 217));
 
-        private Color _color = Color.FromRgb(177, 208, 217);
-        public Color NameColor
-        {
-            get { return _color; }
-            set { SetField(ref _color, value); }
-        }
+        public Color NameColor { get; set; } = Color.FromRgb(177, 208, 217);
 
-        private Brush _backcolor = BACK_BRUSH;
-        public Brush Background_Color
-        {
-            get { return _backcolor; }
-            set { SetField(ref _backcolor, value); }
-        }
+        public Brush Background_Color { get; set; } = BACK_BRUSH;
 
-        private Thickness _col1margin = new Thickness(0, 0, 18, 0);
-        public Thickness Col1_Margin1
-        {
-            get { return _col1margin; }
-            set { SetField(ref _col1margin, value); }
-        }
+        public Thickness Col1_Margin1 { get; set; } = new Thickness(0, 0, 18, 0);
 
-        private Thickness _col1margin2 = new Thickness(0, 0, 0, 0);
-        public Thickness Col1_Margin2
-        {
-            get { return _col1margin2; }
-            set { SetField(ref _col1margin2, value); }
-        }
+        public Thickness Col1_Margin2 { get; set; } = new Thickness(0, 0, 0, 0);
 
-        private Thickness _col2margin = new Thickness(0, 0, 18, 0);
-        public Thickness Col2_Margin1
-        {
-            get { return _col2margin; }
-            set { SetField(ref _col2margin, value); }
-        }
+        public Thickness Col2_Margin1 { get; set; } = new Thickness(0, 0, 18, 0);
 
-        private Thickness _col2margin2 = new Thickness(0, 0, 0, 0);
-        public Thickness Col2_Margin2
-        {
-            get { return _col2margin2; }
-            set { SetField(ref _col2margin2, value); }
-        }
+        public Thickness Col2_Margin2 { get; set; } = new Thickness(0, 0, 0, 0);
 
-        private string _vaulted;
-        public string Vaulted
-        {
-            get { return _vaulted; }
-            set { SetField(ref _vaulted, value); }
-        }
+        public string Vaulted { get; set; }
 
         public bool IsVaulted()
         {
@@ -218,31 +168,31 @@ namespace WFInfo
 
         public void SetEraText()
         {
-            _intact = 0;
-            _radiant = 0;
+            Intact_Val = 0;
+            Radiant_Val = 0;
 
             foreach (TreeNode node in Children)
             {
 
                 if (node.IsVaulted()) // IsVaulted is true if its not vaulted
                 {
-                    _intact += node._intact; 
-                    _radiant += node._radiant; 
+                    Intact_Val += node.Intact_Val;
+                    Radiant_Val += node.Radiant_Val;
 
                 }
             }
 
-            _bonus = _radiant - _intact;
+            Bonus_Val = Radiant_Val - Intact_Val;
 
             Col1_Text1 = "INT:";
-            Col1_Text2 = _intact.ToString("F1");
+            Col1_Text2 = Intact_Val.ToString("F1");
 
             Col1_Img1 = PLAT_SRC;
             Col1_Img1_Shown = "Visible";
 
             Col2_Text1 = "RAD:";
-            Col2_Text2 = _radiant.ToString("F1");
-            int tempBonus = (int)(_bonus * 10);
+            Col2_Text2 = Radiant_Val.ToString("F1");
+            int tempBonus = (int)(Bonus_Val * 10);
             Col2_Text3 = "(";
             if (tempBonus >= 0)
                 Col2_Text3 += "+";
@@ -254,40 +204,40 @@ namespace WFInfo
         }
         public void SetRelicText()
         {
-            _intact = 0;
-            _radiant = 0;
+            Intact_Val = 0;
+            Radiant_Val = 0;
 
             foreach (TreeNode node in Children)
             {
                 if (node.NameColor == RARE_COLOR)
                 {
-                    _intact += INTACT_CHANCE_RARE * node._plat;
-                    _radiant += RADIANT_CHANCE_RARE * node._plat;
+                    Intact_Val += INTACT_CHANCE_RARE * node.Plat_Val;
+                    Radiant_Val += RADIANT_CHANCE_RARE * node.Plat_Val;
                 }
                 else if (node.NameColor == UNCOMMON_COLOR)
                 {
-                    _intact += INTACT_CHANCE_UNCOMMON * node._plat;
-                    _radiant += RADIANT_CHANCE_UNCOMMON * node._plat;
+                    Intact_Val += INTACT_CHANCE_UNCOMMON * node.Plat_Val;
+                    Radiant_Val += RADIANT_CHANCE_UNCOMMON * node.Plat_Val;
                 }
                 else
                 {
-                    _intact += INTACT_CHANCE_COMMON * node._plat;
-                    _radiant += RADIANT_CHANCE_COMMON * node._plat;
+                    Intact_Val += INTACT_CHANCE_COMMON * node.Plat_Val;
+                    Radiant_Val += RADIANT_CHANCE_COMMON * node.Plat_Val;
                 }
             }
 
-            _bonus = _radiant - _intact;
+            Bonus_Val = Radiant_Val - Intact_Val;
             Grid_Shown = "Visible";
 
             Col1_Text1 = "INT:";
-            Col1_Text2 = _intact.ToString("F1");
+            Col1_Text2 = Intact_Val.ToString("F1");
 
             Col1_Img1 = PLAT_SRC;
             Col1_Img1_Shown = "Visible";
 
             Col2_Text1 = "RAD:";
-            Col2_Text2 = _radiant.ToString("F1");
-            int tempBonus = (int)(_bonus * 10);
+            Col2_Text2 = Radiant_Val.ToString("F1");
+            int tempBonus = (int)(Bonus_Val * 10);
             Col2_Text3 = "(";
             if (tempBonus >= 0)
                 Col2_Text3 += "+";
@@ -326,7 +276,7 @@ namespace WFInfo
             }
 
             PrimeUpdateDiff(true);
-            Col1_Text2 = _plat.ToString("F1");
+            Col1_Text2 = Plat_Val.ToString("F1");
 
             Col1_Img1 = PLAT_SRC;
             Col1_Img1_Shown = "Visible";
@@ -343,7 +293,7 @@ namespace WFInfo
             Count_Val = count;
 
             PrimeUpdateDiff(false);
-            Col1_Text2 = _plat.ToString("F1");
+            Col1_Text2 = Plat_Val.ToString("F1");
 
             Col1_Img1 = PLAT_SRC;
             Col1_Img1_Shown = "Visible";
@@ -392,11 +342,11 @@ namespace WFInfo
 
             if (Name != "Forma Blueprint")
             {
-                _plat = plat;
-                _ducat = ducat;
+                Plat_Val = plat;
+                Ducat_Val = ducat;
 
                 Col1_Text1 = "";
-                Col1_Text2 = _plat.ToString("F1");
+                Col1_Text2 = Plat_Val.ToString("F1");
 
                 Col1_Img1 = PLAT_SRC;
                 Col1_Img1_Shown = "Visible";
@@ -405,7 +355,7 @@ namespace WFInfo
 
                 Col2_Text1 = "";
                 Col2_Text2 = "";
-                Col2_Text3 = ducat.ToString();
+                Col2_Text3 = Ducat_Val.ToString();
                 Col2_Img1 = DUCAT_SRC;
                 Col2_Img1_Shown = "Visible";
                 Col2_Margin1 = new Thickness(0, 0, 78, 0);
@@ -535,16 +485,16 @@ namespace WFInfo
                             // 2 - Average radiant plat
                             // 3 - Difference (radiant-intact)
                             case 1:
-                                Children = Children.OrderByDescending(p => p._intact).ToList();
-                                ChildrenFiltered = ChildrenFiltered.OrderByDescending(p => p._intact).ToList();
+                                Children = Children.OrderByDescending(p => p.Intact_Val).ToList();
+                                ChildrenFiltered = ChildrenFiltered.OrderByDescending(p => p.Intact_Val).ToList();
                                 break;
                             case 2:
-                                Children = Children.OrderByDescending(p => p._radiant).ToList();
-                                ChildrenFiltered = ChildrenFiltered.OrderByDescending(p => p._radiant).ToList();
+                                Children = Children.OrderByDescending(p => p.Radiant_Val).ToList();
+                                ChildrenFiltered = ChildrenFiltered.OrderByDescending(p => p.Radiant_Val).ToList();
                                 break;
                             case 3:
-                                Children = Children.OrderByDescending(p => p._bonus).ToList();
-                                ChildrenFiltered = ChildrenFiltered.OrderByDescending(p => p._bonus).ToList();
+                                Children = Children.OrderByDescending(p => p.Bonus_Val).ToList();
+                                ChildrenFiltered = ChildrenFiltered.OrderByDescending(p => p.Bonus_Val).ToList();
                                 break;
                             default:
                                 Children = Children.OrderBy(p => PadNumbers(p.Name)).ToList();
@@ -603,151 +553,46 @@ namespace WFInfo
         }
 
 
-        private string _col1_text1 = "INT:";
-        public string Col1_Text1
-        {
-            get { return _col1_text1; }
-            private set { SetField(ref _col1_text1, value); }
-        }
+        public string Col1_Text1 { get; private set; } = "INT:";
 
-        private string _col1_text2 = "4.4";
-        public string Col1_Text2
-        {
-            get { return _col1_text2; }
-            private set { SetField(ref _col1_text2, value); }
-        }
+        public string Col1_Text2 { get; private set; } = "4.4";
 
-        private ImageSource _col1_img1 = null;
-        public ImageSource Col1_Img1
-        {
-            get { return _col1_img1; }
-            private set { SetField(ref _col1_img1, value); }
-        }
+        public ImageSource Col1_Img1 { get; private set; }
 
-        private string _grid_shown = "Visible";
-        public string Grid_Shown
-        {
-            get { return _grid_shown; }
-            private set { SetField(ref _grid_shown, value); }
-        }
+        public string Grid_Shown { get; private set; } = "Visible";
 
-        private string _col1_img1_shown = "Visible";
-        public string Col1_Img1_Shown
-        {
-            get { return _col1_img1_shown; }
-            private set { SetField(ref _col1_img1_shown, value); }
-        }
+        public string Col1_Img1_Shown { get; private set; } = "Visible";
 
-        private string _col2_text1 = "RAD:";
-        public string Col2_Text1
-        {
-            get { return _col2_text1; }
-            private set { SetField(ref _col2_text1, value); }
-        }
+        public string Col2_Text1 { get; private set; } = "RAD:";
 
-        private string _col2_text2 = "9.9";
-        public string Col2_Text2
-        {
-            get { return _col2_text2; }
-            private set { SetField(ref _col2_text2, value); }
-        }
+        public string Col2_Text2 { get; private set; } = "9.9";
 
-        private string _col2_text3 = "(+5.5)";
-        public string Col2_Text3
-        {
-            get { return _col2_text3; }
-            private set { SetField(ref _col2_text3, value); }
-        }
+        public string Col2_Text3 { get; private set; } = "(+5.5)";
 
-        private ImageSource _col2_img1 = null;
-        public ImageSource Col2_Img1
-        {
-            get { return _col2_img1; }
-            private set { SetField(ref _col2_img1, value); }
-        }
+        public ImageSource Col2_Img1 { get; private set; }
 
-        private string _col2_img1_shown = "Visible";
-        public string Col2_Img1_Shown
-        {
-            get { return _col2_img1_shown; }
-            private set { SetField(ref _col2_img1_shown, value); }
-        }
+        public string Col2_Img1_Shown { get; private set; } = "Visible";
 
-        private double _plat = 0;
-        public double Plat_Val
-        {
-            get { return _plat; }
-            set { SetField(ref _plat, value); }
-        }
+        public double Plat_Val { get; set; }
 
-        private int _ducat = 0;
-        public int Ducat_Val
-        {
-            get { return _ducat; }
-            set { SetField(ref _ducat, value); }
-        }
+        public int Ducat_Val { get; set; }
 
-        private int _owned = 0;
-        public int Owned_Val
-        {
-            get { return _owned; }
-            set { SetField(ref _owned, value); }
-        }
+        public int Owned_Val { get; set; }
 
-        private int _owned_capped = 0;
-        public int Owned_Capped_Val
-        {
-            get { return _owned_capped; }
-            set { SetField(ref _owned_capped, value); }
-        }
+        public int Owned_Capped_Val { get; set; }
 
-        private double _owned_plat = 0;
-        public double Owned_Plat_Val
-        {
-            get { return _owned_plat; }
-            set { SetField(ref _owned_plat, value); }
-        }
+        public double Owned_Plat_Val { get; set; }
 
-        private double _owned_ducat = 0;
-        public double Owned_Ducat_Val
-        {
-            get { return _owned_ducat; }
-            set { SetField(ref _owned_ducat, value); }
-        }
+        public double Owned_Ducat_Val { get; set; }
 
-        private int _count = 0;
-        public int Count_Val
-        {
-            get { return _count; }
-            set { SetField(ref _count, value); }
-        }
-        private double _diff = 0;
-        public double Diff_Val
-        {
-            get { return _diff; }
-            set { SetField(ref _diff, value); }
-        }
+        public int Count_Val { get; set; }
+        public double Diff_Val { get; set; }
 
-        private double _intact = 0;
-        public double Intact_Val
-        {
-            get { return _intact; }
-            set { SetField(ref _intact, value); }
-        }
+        public double Intact_Val { get; set; }
 
-        private double _radiant = 0;
-        public double Radiant_Val
-        {
-            get { return _radiant; }
-            set { SetField(ref _radiant, value); }
-        }
+        public double Radiant_Val { get; set; }
 
-        private double _bonus = 0;
-        public double Bonus_Val
-        {
-            get { return _bonus; }
-            set { SetField(ref _bonus, value); }
-        }
+        public double Bonus_Val { get; set; }
 
         public Visibility IsVisible
         {
@@ -777,26 +622,11 @@ namespace WFInfo
             }
         }
 
-        private List<TreeNode> _childrenFiltered;
-        public List<TreeNode> ChildrenFiltered
-        {
-            get { return _childrenFiltered; }
-            private set { SetField(ref _childrenFiltered, value); }
-        }
+        public List<TreeNode> ChildrenFiltered { get; private set; }
 
-        private List<TreeNode> _children;
-        public List<TreeNode> Children
-        {
-            get { return _children; }
-            private set { SetField(ref _children, value); }
-        }
+        public List<TreeNode> Children { get; private set; }
 
-        private bool _mastered = false;
-        public bool Mastered
-        {
-            get { return _mastered; }
-            set { SetField(ref _mastered, value); }
-        }
+        public bool Mastered { get; set; }
 
         public TreeNode current;
         public void AddChild(TreeNode kid)
@@ -810,26 +640,11 @@ namespace WFInfo
             return Era + " " + Name;
         }
 
-        private ICommand _decrement;
-        public ICommand DecrementPart
-        {
-            get { return _decrement; }
-            private set { SetField(ref _decrement, value); }
-        }
+        public ICommand DecrementPart { get; private set; }
 
-        private ICommand _increment;
-        public ICommand IncrementPart
-        {
-            get { return _increment; }
-            private set { SetField(ref _increment, value); }
-        }
-        
-        private ICommand _markcomplete;
-        public ICommand MarkComplete
-        {
-            get { return _markcomplete; }
-            private set { SetField(ref _markcomplete, value); }
-        }
+        public ICommand IncrementPart { get; private set; }
+
+        public ICommand MarkComplete { get; private set; }
 
         private string dataRef;
 
@@ -856,7 +671,7 @@ namespace WFInfo
                 await System.Threading.Tasks.Task.Run(() => IncrementPartThreaded(current));
             }
         }
-        
+
         public async void MarkCompleteFunc()
         {
             await System.Threading.Tasks.Task.Run(() => MarkSetAsComplete());
