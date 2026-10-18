@@ -166,27 +166,17 @@ namespace WFInfo
                 if (showAllEqmt)
                 {
                     EqmtTree.Items.IsLiveSorting = true;
-                    switch (SortBox.SelectedIndex)
+                    var (propertyName, direction) = SortBox.SelectedIndex switch
                     {
-                        case 1:
-                            EqmtTree.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("Plat_Val", System.ComponentModel.ListSortDirection.Descending));
-                            break;
-                        case 2:
-                            EqmtTree.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("Diff_Val", System.ComponentModel.ListSortDirection.Ascending));
-                            break;
-                        case 3:
-                            EqmtTree.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("Owned_Val", System.ComponentModel.ListSortDirection.Descending));
-                            break;
-                        case 4:
-                            EqmtTree.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("Owned_Plat_Val", System.ComponentModel.ListSortDirection.Descending));
-                            break;
-                        case 5:
-                            EqmtTree.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("Owned_Ducat_Val", System.ComponentModel.ListSortDirection.Descending));
-                            break;
-                        default:
-                            EqmtTree.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("EqmtName_Sort", System.ComponentModel.ListSortDirection.Ascending));
-                            break;
-                    }
+                        1 => ("Plat_Val", System.ComponentModel.ListSortDirection.Descending),
+                        2 => ("Diff_Val", System.ComponentModel.ListSortDirection.Ascending),
+                        3 => ("Owned_Val", System.ComponentModel.ListSortDirection.Descending),
+                        4 => ("Owned_Plat_Val", System.ComponentModel.ListSortDirection.Descending),
+                        5 => ("Owned_Ducat_Val", System.ComponentModel.ListSortDirection.Descending),
+                        _ => ("EqmtName_Sort", System.ComponentModel.ListSortDirection.Ascending)
+                    };
+                    EqmtTree.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription(propertyName, direction));
+
                     bool i = false;
                     foreach (TreeNode prime in EqmtTree.Items)
                     {
