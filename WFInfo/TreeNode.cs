@@ -393,6 +393,16 @@ namespace WFInfo
             ChildrenFiltered = ChildrenFiltered.AsParallel().Where(node => node.Owned_Capped_Val != node.Owned_Val).ToList();
         }
 
+        public void FilterOutMastered(bool additionalFilter = false)
+        {
+            ChildrenFiltered = ChildrenFiltered.AsParallel().Where(node => !node.Mastered).ToList();
+        }
+
+        public void FilterOutUnmastered(bool additionalFilter = false)
+        {
+            ChildrenFiltered = ChildrenFiltered.AsParallel().Where(node => node.Mastered).ToList();
+        }
+
         public void RecolorChildren()
         {
             bool i = false;

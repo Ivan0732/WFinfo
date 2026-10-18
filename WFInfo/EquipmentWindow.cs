@@ -355,6 +355,12 @@ namespace WFInfo
 
                 if (incomplete.IsChecked == true)
                     type.FilterOutIncomplete(true);
+
+                if (mastered.IsChecked == true)
+                    type.FilterOutMastered(true);
+
+                if (unmastered.IsChecked == true)
+                    type.FilterOutUnmastered(true);
             }
         }
 

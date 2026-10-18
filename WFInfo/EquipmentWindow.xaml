@@ -28,6 +28,8 @@
                         <CheckBox x:Name="unowned" Content="Hide Unowned" IsChecked="False" Foreground="#FFB1D0D9" Click="FilterChanged"/>
                         <CheckBox x:Name="completed" Content="Hide Completed" IsChecked="False" Foreground="#FFB1D0D9" Click="FilterChanged"/>
                         <CheckBox x:Name="incomplete" Content="Hide Incomplete" IsChecked="False" Foreground="#FFB1D0D9" Click="FilterChanged"/>
+                        <CheckBox x:Name="mastered" Content="Hide Mastered" IsChecked="False" Foreground="#FFB1D0D9" Click="FilterChanged"/>
+                        <CheckBox x:Name="unmastered" Content="Hide Unmastered" IsChecked="False" Foreground="#FFB1D0D9" Click="FilterChanged"/>
                     </StackPanel>
                 </Border>
             </Popup>
