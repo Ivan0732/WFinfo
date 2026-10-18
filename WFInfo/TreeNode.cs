@@ -209,21 +209,15 @@ namespace WFInfo
 
             foreach (TreeNode node in Children)
             {
-                if (node.NameColor == RARE_COLOR)
+                var (intactChance, radiantChance) = node.NameColor switch
                 {
-                    Intact_Val += INTACT_CHANCE_RARE * node.Plat_Val;
-                    Radiant_Val += RADIANT_CHANCE_RARE * node.Plat_Val;
-                }
-                else if (node.NameColor == UNCOMMON_COLOR)
-                {
-                    Intact_Val += INTACT_CHANCE_UNCOMMON * node.Plat_Val;
-                    Radiant_Val += RADIANT_CHANCE_UNCOMMON * node.Plat_Val;
-                }
-                else
-                {
-                    Intact_Val += INTACT_CHANCE_COMMON * node.Plat_Val;
-                    Radiant_Val += RADIANT_CHANCE_COMMON * node.Plat_Val;
-                }
+                    var c when c == RARE_COLOR => (INTACT_CHANCE_RARE, RADIANT_CHANCE_RARE),
+                    var c when c == UNCOMMON_COLOR => (INTACT_CHANCE_UNCOMMON, RADIANT_CHANCE_UNCOMMON),
+                    _ => (INTACT_CHANCE_COMMON, RADIANT_CHANCE_COMMON)
+                };
+
+                Intact_Val += intactChance * node.Plat_Val;
+                Radiant_Val += radiantChance * node.Plat_Val;
             }
 
             Bonus_Val = Radiant_Val - Intact_Val;
@@ -324,21 +318,13 @@ namespace WFInfo
 
         public void SetPartText(double plat, int ducat, string rarity)
         {
-            if (rarity.Contains("rare"))
+            (NameColor, NameBrush) = rarity switch
             {
-                NameColor = RARE_COLOR;
-                NameBrush = RARE_BRUSH;
-            }
-            else if (rarity.Contains("uncomm"))
-            {
-                NameColor = UNCOMMON_COLOR;
-                NameBrush = UNCOMMON_BRUSH;
-            }
-            else if (rarity.Contains("comm"))
-            {
-                NameColor = COMMON_COLOR;
-                NameBrush = COMMON_BRUSH;
-            }
+                var s when s.Contains("rare") => (RARE_COLOR, RARE_BRUSH),
+                var s when s.Contains("uncomm") => (UNCOMMON_COLOR, UNCOMMON_BRUSH),
+                var s when s.Contains("comm") => (COMMON_COLOR, COMMON_BRUSH),
+                _ => (NameColor, NameBrush)
+            };
 
             if (Name != "Forma Blueprint")
             {
