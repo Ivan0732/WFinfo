@@ -24,7 +24,10 @@
             <Popup IsOpen="{Binding IsChecked, ElementName=FilterToggle}" StaysOpen="False" PlacementTarget="{Binding ElementName=FilterToggle}" Placement="Bottom">
                 <Border Background="#FF1B1B1B" BorderBrush="#FF646464" BorderThickness="1" Padding="5">
                     <StackPanel>
-                        <CheckBox x:Name="vaulted" Content="Hide Vaulted" IsChecked="True" Foreground="#FFB1D0D9" Click="VaultedClick"/>
+                        <CheckBox x:Name="vaulted" Content="Hide Vaulted" IsChecked="True" Foreground="#FFB1D0D9" Click="FilterChanged"/>
+                        <CheckBox x:Name="unowned" Content="Hide Unowned" IsChecked="False" Foreground="#FFB1D0D9" Click="FilterChanged"/>
+                        <CheckBox x:Name="completed" Content="Hide Completed" IsChecked="False" Foreground="#FFB1D0D9" Click="FilterChanged"/>
+                        <CheckBox x:Name="incomplete" Content="Hide Incomplete" IsChecked="False" Foreground="#FFB1D0D9" Click="FilterChanged"/>
                     </StackPanel>
                 </Border>
             </Popup>
@@ -32,7 +35,7 @@
             <TextBox x:Name="textBox" Margin="191,0,0,0" VerticalContentAlignment="Center" Padding="0" Text="Filter Terms" Foreground="#FF646464" TextChanged="TextboxTextChanged" SelectionBrush="#FF7EB4EA" GotFocus="TextBoxFocus" LostFocus="TextBoxLostFocus" BorderBrush="#FF303030" BorderThickness="1,0,0,0"/>
             <Rectangle Stroke="#FF646464" Margin="149,-1,-1,-1"/>
             <Label Content="Filter:" HorizontalAlignment="Left" Margin="155,0,0,0" Padding="0" VerticalContentAlignment="Center" />
-            
+
         </Grid>
         <Label x:Name="eqmtComboButton" MouseLeftButtonDown="ToggleShowAllEqmt" Content="Equipment Types" FontSize="12" FontWeight="Normal" Margin="0,45,276,0" Style="{StaticResource Label_Button}" Height="20" VerticalAlignment="Top"/>
         <Grid Margin="1,46,1,0" Height="18" VerticalAlignment="Top">

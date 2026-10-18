@@ -368,13 +368,29 @@ namespace WFInfo
             //Children.AsParallel().ForAll(node => node.ResetFilter());
 
             ForceVisibility = false;
-            ChildrenFiltered = Children;
+            ChildrenFiltered = [.. Children];
         }
 
         public void FilterOutVaulted(bool additionalFilter = false)
         {
             List<TreeNode> filterList = additionalFilter ? ChildrenFiltered : Children;
             ChildrenFiltered = filterList.AsParallel().Where(node => node.IsVaulted()).ToList();
+        }
+
+        public void FilterOutUnowned(bool additionalFilter = false)
+        {
+            ChildrenFiltered = ChildrenFiltered.AsParallel().Where(node => node.Owned_Capped_Val > 0).ToList();
+        }
+
+        public void FilterOutCompleted(bool additionalFilter = false)
+        {
+            ChildrenFiltered = ChildrenFiltered.AsParallel().Where(node => node.Owned_Capped_Val == node.Owned_Val).ToList();
+        }
+
+        public void FilterOutIncomplete(bool additionalFilter = false)
+        {
+            //TODO: Counts dupes 
+            ChildrenFiltered = ChildrenFiltered.AsParallel().Where(node => node.Owned_Capped_Val != node.Owned_Val).ToList();
         }
 
         public void RecolorChildren()

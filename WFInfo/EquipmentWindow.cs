@@ -135,7 +135,7 @@ namespace WFInfo
                 }
                 TreeNode primeType = primeTypes[typeName];
                 primeType.ResetFilter();
-                primeType.FilterOutVaulted();
+                ApplyFilters();
                 EqmtTree.Items.Add(primeType);
             }
             SortBoxChanged(null, null);
@@ -191,17 +191,9 @@ namespace WFInfo
             }
         }
 
-        private void VaultedClick(object sender, RoutedEventArgs e)
+        private void FilterChanged(object sender, RoutedEventArgs e)
         {
-            if ((bool)vaulted.IsChecked)
-            {
-                foreach (KeyValuePair<string, TreeNode> primeType in primeTypes)
-                    primeType.Value.FilterOutVaulted(true);
-
-                RefreshVisibleRelics();
-            }
-            else
-                ReapplyFilters();
+            StartSearchReapplyTimer();
         }
 
         /// <summary>
@@ -348,14 +340,30 @@ namespace WFInfo
             EqmtTree.Items.Refresh();
         }
 
+        private void ApplyFilters()
+        {
+            foreach (TreeNode type in primeTypes.Select(x => x.Value))
+            {
+                if (vaulted.IsChecked == true)
+                    type.FilterOutVaulted(true);
+
+                if (unowned.IsChecked == true)
+                    type.FilterOutUnowned(true);
+
+                if (completed.IsChecked == true)
+                    type.FilterOutCompleted(true);
+
+                if (incomplete.IsChecked == true)
+                    type.FilterOutIncomplete(true);
+            }
+        }
+
         private void ReapplyFilters()
         {
             foreach (KeyValuePair<string, TreeNode> primeType in primeTypes)
                 primeType.Value.ResetFilter();
 
-            if ((bool)vaulted.IsChecked)
-                foreach (KeyValuePair<string, TreeNode> primeType in primeTypes)
-                    primeType.Value.FilterOutVaulted(true);
+            ApplyFilters();
 
             if (searchText != null && searchText.Length != 0)
                 foreach (KeyValuePair<string, TreeNode> primeType in primeTypes)
