@@ -18,10 +18,10 @@
         <Grid Margin="1,27,1,0" Height="18" VerticalAlignment="Top">
             <Rectangle Fill="#FF0F0F0F" Stroke="#FF646464" Margin="-1" />
             
-            <ToggleButton x:Name="FilterToggle" Content="☰ Categories" Margin="52,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" 
+            <ToggleButton x:Name="CategoriesToggle" Content="☰ Categories" Margin="42,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" 
                         Background="Transparent" BorderThickness="0" Foreground="#FFB1D0D9" Cursor="Hand"/>
             
-           <Popup IsOpen="{Binding IsChecked, ElementName=FilterToggle}" StaysOpen="False" PlacementTarget="{Binding ElementName=FilterToggle}" Placement="Bottom">
+            <Popup IsOpen="{Binding IsChecked, ElementName=CategoriesToggle}" StaysOpen="False" PlacementTarget="{Binding ElementName=CategoriesToggle}" Placement="Bottom">
                 <Border Background="#FF1B1B1B" BorderBrush="#FF646464" BorderThickness="1" Padding="5">
                     <StackPanel>
                         <StackPanel.Resources>
