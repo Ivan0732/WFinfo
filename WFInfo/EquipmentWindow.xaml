@@ -21,32 +21,37 @@
             <ToggleButton x:Name="FilterToggle" Content="☰ Categories" Margin="52,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" 
                         Background="Transparent" BorderThickness="0" Foreground="#FFB1D0D9" Cursor="Hand"/>
             
-            <Popup IsOpen="{Binding IsChecked, ElementName=FilterToggle}" StaysOpen="False" PlacementTarget="{Binding ElementName=FilterToggle}" Placement="Bottom">
+           <Popup IsOpen="{Binding IsChecked, ElementName=FilterToggle}" StaysOpen="False" PlacementTarget="{Binding ElementName=FilterToggle}" Placement="Bottom">
                 <Border Background="#FF1B1B1B" BorderBrush="#FF646464" BorderThickness="1" Padding="5">
-                    <Border.Resources>
-                        <Style TargetType="CheckBox">
-                            <Setter Property="Foreground" Value="#FFB1D0D9"/>
-                            <Setter Property="Margin" Value="0,2"/>
-                        </Style>
-                        <Style TargetType="Separator">
-                            <Setter Property="Margin" Value="0,5"/>
-                            <Setter Property="Background" Value="#FF646464"/>
-                        </Style>
-                    </Border.Resources>
-                    
                     <StackPanel>
-                        <CheckBox x:Name="vaulted" Content="Vaulted" IsChecked="False" Click="FilterChanged"/>
+                        <StackPanel.Resources>
+                            <Style TargetType="CheckBox">
+                                <Setter Property="Foreground" Value="#FFB1D0D9"/>
+                                <Setter Property="Margin" Value="0,1,20,1"/>
+                                 <Setter Property="Padding" Value="4,1,0,0"/>
+                            </Style>
+                            <Style TargetType="Separator">
+                                <Setter Property="Margin" Value="0,5"/>
+                                <Setter Property="Background" Value="#FF646464"/>
+                            </Style>
+                        </StackPanel.Resources>
+
+                        <CheckBox x:Name="vaulted" Content="Vaulted" Click="FilterChanged" Padding="4,1,0,0" />
                         <Separator/>
 
-                        <CheckBox x:Name="unowned" Content="Unowned" IsChecked="True" Click="FilterChanged"/>
+                        <CheckBox x:Name="unowned" Content="Unowned" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" />
                         <Separator/>
 
-                        <CheckBox x:Name="completed" Content="Completed" IsChecked="True" Click="FilterChanged"/>
-                        <CheckBox x:Name="incomplete" Content="Incomplete" IsChecked="True" Click="FilterChanged"/>
+                        <UniformGrid Columns="2">
+                            <CheckBox x:Name="completed" Content="Completed" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" />
+                            <CheckBox x:Name="incomplete" Content="Incomplete" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" />
+                        </UniformGrid>
                         <Separator/>
-                        
-                        <CheckBox x:Name="mastered" Content="Mastered" IsChecked="True" Click="FilterChanged"/>
-                        <CheckBox x:Name="unmastered" Content="Unmastered" IsChecked="True" Click="FilterChanged"/>
+
+                        <UniformGrid Columns="2">
+                            <CheckBox x:Name="mastered" Content="Mastered" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" />
+                            <CheckBox x:Name="unmastered" Content="Unmastered" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" />
+                        </UniformGrid>
                     </StackPanel>
                 </Border>
             </Popup>
