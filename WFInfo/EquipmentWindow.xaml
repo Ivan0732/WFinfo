@@ -18,7 +18,7 @@
         <Grid Margin="1,27,1,0" Height="18" VerticalAlignment="Top">
             <Rectangle Fill="#FF0F0F0F" Stroke="#FF646464" Margin="-1" />
             
-            <ToggleButton x:Name="FilterToggle" Content="⚙ Filters" Margin="52,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" 
+            <ToggleButton x:Name="FilterToggle" Content="⚙ Categories" Margin="52,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" 
                         Background="Transparent" BorderThickness="0" Foreground="#FFB1D0D9" Cursor="Hand"/>
             
             <Popup IsOpen="{Binding IsChecked, ElementName=FilterToggle}" StaysOpen="False" PlacementTarget="{Binding ElementName=FilterToggle}" Placement="Bottom">
@@ -35,18 +35,18 @@
                     </Border.Resources>
                     
                     <StackPanel>
-                        <CheckBox x:Name="vaulted" Content="Hide Vaulted" IsChecked="True" Click="FilterChanged"/>
+                        <CheckBox x:Name="vaulted" Content="Vaulted" IsChecked="False" Click="FilterChanged"/>
                         <Separator/>
 
-                        <CheckBox x:Name="unowned" Content="Hide Unowned" IsChecked="False" Click="FilterChanged"/>
+                        <CheckBox x:Name="unowned" Content="Unowned" IsChecked="True" Click="FilterChanged"/>
                         <Separator/>
 
-                        <CheckBox x:Name="completed" Content="Hide Completed" IsChecked="False" Click="FilterChanged"/>
-                        <CheckBox x:Name="incomplete" Content="Hide Incomplete" IsChecked="False" Click="FilterChanged"/>
+                        <CheckBox x:Name="completed" Content="Completed" IsChecked="True" Click="FilterChanged"/>
+                        <CheckBox x:Name="incomplete" Content="Incomplete" IsChecked="True" Click="FilterChanged"/>
                         <Separator/>
                         
-                        <CheckBox x:Name="mastered" Content="Hide Mastered" IsChecked="False" Click="FilterChanged"/>
-                        <CheckBox x:Name="unmastered" Content="Hide Unmastered" IsChecked="False" Click="FilterChanged"/>
+                        <CheckBox x:Name="mastered" Content="Mastered" IsChecked="True" Click="FilterChanged"/>
+                        <CheckBox x:Name="unmastered" Content="Unmastered" IsChecked="True" Click="FilterChanged"/>
                     </StackPanel>
                 </Border>
             </Popup>

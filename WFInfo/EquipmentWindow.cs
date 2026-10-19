@@ -344,12 +344,12 @@ namespace WFInfo
         {
             foreach (TreeNode type in primeTypes.Select(x => x.Value))
             {
-                if (vaulted.IsChecked == true) type.FilterOutVaulted(true);
-                if (unowned.IsChecked == true) type.FilterOutUnowned();
-                if (completed.IsChecked == true) type.FilterOutCompleted();
-                if (incomplete.IsChecked == true) type.FilterOutIncomplete();
-                if (mastered.IsChecked == true) type.FilterOutMastered();
-                if (unmastered.IsChecked == true) type.FilterOutUnmastered();
+                if (vaulted.IsChecked == false) type.FilterOutVaulted(true);
+                if (unowned.IsChecked == false) type.FilterOutUnowned();
+                if (completed.IsChecked == false) type.FilterOutCompleted();
+                if (incomplete.IsChecked == false) type.FilterOutIncomplete();
+                if (mastered.IsChecked == false) type.FilterOutMastered();
+                if (unmastered.IsChecked == false) type.FilterOutUnmastered();
             }
         }
 

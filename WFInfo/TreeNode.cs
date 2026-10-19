@@ -373,10 +373,9 @@ namespace WFInfo
 
         public void FilterOutVaulted(bool additionalFilter = false)
         {
-            List<TreeNode> filterList = additionalFilter ? ChildrenFiltered : Children;
-            ChildrenFiltered = filterList.AsParallel().Where(node => node.IsVaulted()).ToList();
+            if (!additionalFilter) ChildrenFiltered = [.. Children];
+            ApplyFilter(node => string.IsNullOrEmpty(node.Vaulted));
         }
-
 
         private void ApplyFilter(Func<TreeNode, bool> predicate) =>
             ChildrenFiltered = ChildrenFiltered.AsParallel().Where(predicate).ToList();
