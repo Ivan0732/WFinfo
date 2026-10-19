@@ -377,30 +377,14 @@ namespace WFInfo
             ChildrenFiltered = filterList.AsParallel().Where(node => node.IsVaulted()).ToList();
         }
 
-        public void FilterOutUnowned(bool additionalFilter = false)
-        {
-            ChildrenFiltered = ChildrenFiltered.AsParallel().Where(node => node.Owned_Capped_Val > 0).ToList();
-        }
 
-        public void FilterOutCompleted(bool additionalFilter = false)
-        {
-            ChildrenFiltered = ChildrenFiltered.AsParallel().Where(node => node.Owned_Capped_Val != node.Count_Val).ToList();
-        }
-
-        public void FilterOutIncomplete(bool additionalFilter = false)
-        {
-            ChildrenFiltered = ChildrenFiltered.AsParallel().Where(node => node.Owned_Capped_Val == node.Count_Val).ToList();
-        }
-
-        public void FilterOutMastered(bool additionalFilter = false)
-        {
-            ChildrenFiltered = ChildrenFiltered.AsParallel().Where(node => !node.Mastered).ToList();
-        }
-
-        public void FilterOutUnmastered(bool additionalFilter = false)
-        {
-            ChildrenFiltered = ChildrenFiltered.AsParallel().Where(node => node.Mastered).ToList();
-        }
+        private void ApplyFilter(Func<TreeNode, bool> predicate) =>
+            ChildrenFiltered = ChildrenFiltered.AsParallel().Where(predicate).ToList();
+        public void FilterOutUnowned() => ApplyFilter(node => node.Owned_Capped_Val > 0);
+        public void FilterOutCompleted() => ApplyFilter(node => node.Owned_Capped_Val != node.Count_Val);
+        public void FilterOutIncomplete() => ApplyFilter(node => node.Owned_Capped_Val == node.Count_Val);
+        public void FilterOutMastered() => ApplyFilter(node => !node.Mastered);
+        public void FilterOutUnmastered() => ApplyFilter(node => node.Mastered);
 
         public void RecolorChildren()
         {
