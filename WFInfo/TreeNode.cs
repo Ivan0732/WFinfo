@@ -384,13 +384,12 @@ namespace WFInfo
 
         public void FilterOutCompleted(bool additionalFilter = false)
         {
-            ChildrenFiltered = ChildrenFiltered.AsParallel().Where(node => node.Owned_Capped_Val == node.Owned_Val).ToList();
+            ChildrenFiltered = ChildrenFiltered.AsParallel().Where(node => node.Owned_Capped_Val != node.Count_Val).ToList();
         }
 
         public void FilterOutIncomplete(bool additionalFilter = false)
         {
-            //TODO: Counts dupes 
-            ChildrenFiltered = ChildrenFiltered.AsParallel().Where(node => node.Owned_Capped_Val != node.Owned_Val).ToList();
+            ChildrenFiltered = ChildrenFiltered.AsParallel().Where(node => node.Owned_Capped_Val == node.Count_Val).ToList();
         }
 
         public void FilterOutMastered(bool additionalFilter = false)
