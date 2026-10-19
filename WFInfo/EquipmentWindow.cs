@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Forms;
+using System;
 
 namespace WFInfo
 {
@@ -282,6 +283,12 @@ namespace WFInfo
             foreach (KeyValuePair<string, TreeNode> primeType in primeTypes)
                 primeType.Value.ChangeExpandedTo(false);
         }
+
+        private void CategoriesExpand(object sender, RoutedEventArgs e) =>
+            CategoriesPopup.IsOpen = !CategoriesPopup.IsOpen;
+
+        private void CategoriesCollapse(object sender, System.Windows.Input.MouseEventArgs e) =>
+            CategoriesPopup.IsOpen = false;
 
         private void RefreshVisibleRelics()
         {
