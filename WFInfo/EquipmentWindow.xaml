@@ -25,11 +25,6 @@
                 <Border Background="#FF1B1B1B" BorderBrush="#FF646464" BorderThickness="1" Padding="5">
                     <StackPanel>
                         <StackPanel.Resources>
-                            <Style TargetType="CheckBox">
-                                <Setter Property="Foreground" Value="#FFB1D0D9"/>
-                                <Setter Property="Margin" Value="0,1,20,1"/>
-                                 <Setter Property="Padding" Value="4,1,0,0"/>
-                            </Style>
                             <Style TargetType="Separator">
                                 <Setter Property="Margin" Value="0,5"/>
                                 <Setter Property="Background" Value="#FF646464"/>
