@@ -385,6 +385,12 @@ namespace WFInfo
         public void FilterOutMastered() => ApplyFilter(node => !node.Mastered);
         public void FilterOutUnmastered() => ApplyFilter(node => node.Mastered);
 
+        public void FilterOutEquipment(string name)
+        {
+            if (EqmtName_Sort.Contains(name))
+                ChildrenFiltered = [];
+        }
+
         public void RecolorChildren()
         {
             bool i = false;

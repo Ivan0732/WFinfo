@@ -357,6 +357,13 @@ namespace WFInfo
                 if (incomplete.IsChecked == false) type.FilterOutIncomplete();
                 if (mastered.IsChecked == false) type.FilterOutMastered();
                 if (unmastered.IsChecked == false) type.FilterOutUnmastered();
+
+                if (warframes.IsChecked == false) type.FilterOutEquipment("Warframes");
+                if (primary.IsChecked == false) type.FilterOutEquipment("Primary");
+                if (secondary.IsChecked == false) type.FilterOutEquipment("Secondary");
+                if (melee.IsChecked == false) type.FilterOutEquipment("Melee");
+                if (archwing.IsChecked == false) type.FilterOutEquipment("Archwing");
+                if (companion.IsChecked == false) type.FilterOutEquipment("Companion");
             }
         }
 

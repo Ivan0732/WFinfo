@@ -48,6 +48,17 @@
                             <CheckBox x:Name="mastered" Content="Mastered" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" />
                             <CheckBox x:Name="unmastered" Content="Unmastered" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" />
                         </UniformGrid>
+                        <Separator/>
+
+                        <UniformGrid Columns="2">
+                            <CheckBox x:Name="warframes" Content="Warframes" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" />
+                            <CheckBox x:Name="primary" Content="Primary" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" />
+                            <CheckBox x:Name="secondary" Content="Secondary" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" />
+                            <CheckBox x:Name="melee" Content="Melee" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" />
+                            <CheckBox x:Name="archwing" Content="Archwing" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" />
+                            <CheckBox x:Name="companion" Content="Companion" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" />
+                        </UniformGrid>
+
                     </StackPanel>
                 </Border>
             </Popup>
