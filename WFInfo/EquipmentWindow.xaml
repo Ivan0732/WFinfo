@@ -35,12 +35,12 @@
                         <CheckBox x:Name="vaulted" Content="Vaulted" Click="FilterChanged" Padding="4,1,0,0" />
                         <Separator/>
 
-                        <CheckBox x:Name="unowned" Content="Unowned" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" />
+                        <CheckBox x:Name="unowned" Content="Unowned" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" ToolTip="No parts owned" />
                         <Separator/>
 
                         <UniformGrid Columns="2">
-                            <CheckBox x:Name="completed" Content="Completed" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" />
-                            <CheckBox x:Name="incomplete" Content="Incomplete" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" />
+                            <CheckBox x:Name="completed" Content="Completed" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" ToolTip="All parts owned"  />
+                            <CheckBox x:Name="incomplete" Content="Incomplete" IsChecked="True" Click="FilterChanged" Padding="4,1,0,0" ToolTip="At least 1 part not owned"/>
                         </UniformGrid>
                         <Separator/>
 
