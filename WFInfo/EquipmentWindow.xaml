@@ -14,15 +14,9 @@
         <Rectangle Fill="#FF1B1B1B" Stroke="#FF646464" />
         <Label MouseLeftButtonDown="ExpandAll" Content="＋" FontSize="15" ToolTip="Expand All Levels" Padding="0" Margin="0,26,379,0" Style="{StaticResource Label_Button}" Height="20" VerticalAlignment="Top"/>
         <Label MouseLeftButtonDown="CollapseAll" Content="－" FontSize="15" ToolTip="Collapse All Levels" Padding="0" Margin="20,26,359,0" Style="{StaticResource Label_Button}" Height="20" VerticalAlignment="Top"/>
+        <Label MouseLeftButtonDown="CategoriesExpand" Content="☰ Categories" FontSize="12" Margin="40,26,249,0" Style="{StaticResource Label_Button}" Height="20" VerticalAlignment="Top" HorizontalContentAlignment="Left" Padding="4,0,0,0"/>
 
-        <Grid Margin="1,27,1,0" Height="18" VerticalAlignment="Top">
-            <Rectangle Fill="#FF0F0F0F" Stroke="#FF646464" Margin="-1" />
-            
-            <Button x:Name="CategoriesBtn" Content="☰ Categories" ToolTip="View Categories"
-                Margin="42,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" 
-                Background="Transparent" BorderThickness="0" 
-                Click="CategoriesExpand"/>
-
+        <Grid Margin="40,27,1,0" Height="18" VerticalAlignment="Top">
             <Popup x:Name="CategoriesPopup" 
                 StaysOpen="True" 
                 PlacementTarget="{Binding ElementName=CategoriesBtn}" 
