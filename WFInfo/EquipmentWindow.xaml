@@ -18,8 +18,7 @@
 
         <Grid Margin="40,27,1,0" Height="18" VerticalAlignment="Top">
             <Popup x:Name="CategoriesPopup" 
-                StaysOpen="True" 
-                PlacementTarget="{Binding ElementName=CategoriesBtn}" 
+                StaysOpen="True"
                 Placement="Bottom"
                 MouseLeave="CategoriesCollapse"
             >
