@@ -378,7 +378,7 @@ namespace WFInfo
         }
 
         private void ApplyFilter(Func<TreeNode, bool> predicate) =>
-            ChildrenFiltered = ChildrenFiltered.AsParallel().Where(predicate).ToList();
+            ChildrenFiltered = ChildrenFiltered.Where(predicate).ToList();
         public void FilterOutUnowned() => ApplyFilter(node => node.Owned_Capped_Val > 0);
         public void FilterOutCompleted() => ApplyFilter(node => node.Owned_Capped_Val != node.Count_Val);
         public void FilterOutIncomplete() => ApplyFilter(node => node.Owned_Capped_Val == node.Count_Val);
