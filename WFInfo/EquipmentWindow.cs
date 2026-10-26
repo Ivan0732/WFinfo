@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Forms;
 using System;
+using System.Windows.Threading;
 
 namespace WFInfo
 {
@@ -19,7 +20,7 @@ namespace WFInfo
         private bool searchActive = false;
         private bool showAllEqmt = false;
         private int searchTimerDurationMS = 500;
-        public static Timer searchTimer = new Timer();
+        public static DispatcherTimer searchTimer;
         public static string[] searchText;
         public static EquipmentWindow INSTANCE;
 
@@ -27,6 +28,16 @@ namespace WFInfo
         {
             InitializeComponent();
             INSTANCE = this;
+
+            searchTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(searchTimerDurationMS)
+            };
+            searchTimer.Tick += (s, e) =>
+            {
+                searchTimer.Stop();
+                ReapplyFilters();
+            };
         }
 
         private void Hide(object sender, RoutedEventArgs e)
@@ -200,21 +211,10 @@ namespace WFInfo
         /// <summary>
         /// Starts a timer to wait to apply changes to filters on search bar
         /// </summary>
-        private void StartSearchReapplyTimer()
+        private static void StartSearchReapplyTimer()
         {
-            if (searchTimer.Enabled)
-            {
-                searchTimer.Stop();
-            }
-
-            searchTimer.Interval = searchTimerDurationMS;
-            searchTimer.Enabled = true;
-            searchTimer.Tick += (s, e) =>
-            {
-                searchTimer.Enabled = false;
-                searchTimer.Stop();
-                ReapplyFilters();
-            };
+            searchTimer.Stop();
+            searchTimer.Start();
         }
 
         private void TextboxTextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)

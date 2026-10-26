@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using Newtonsoft.Json.Linq;
 
 namespace WFInfo
@@ -16,6 +18,16 @@ namespace WFInfo
             RelicsItemsView = new ListCollectionView(_relicTreeItems);
             ExpandAllCommand = new SimpleCommand(() => ExpandOrCollapseAll(true));
             CollapseAllCommand = new SimpleCommand(() => ExpandOrCollapseAll(false));
+
+            searchTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(searchTimerDurationMS)
+            };
+            searchTimer.Tick += (s, e) =>
+            {
+                searchTimer.Stop();
+                ReapplyFilters();
+            };
         }
 
         private bool _initialized = false;
@@ -27,23 +39,12 @@ namespace WFInfo
         private bool _hideVaulted = true;
         private readonly List<TreeNode> _rawRelicNodes = new List<TreeNode>();
 
-        public static Timer searchTimer = new Timer();
+        public static DispatcherTimer searchTimer;
 
-        private void StartSearchReapplyTimer()
+        private static void StartSearchReapplyTimer()
         {
-            if (searchTimer.Enabled)
-            {
-                searchTimer.Stop();
-            }
-
-            searchTimer.Interval = searchTimerDurationMS;
-            searchTimer.Enabled = true;
-            searchTimer.Tick += (s, e) =>
-            {
-                searchTimer.Enabled = false;
-                searchTimer.Stop();
-                ReapplyFilters();
-            };
+            searchTimer.Stop();
+            searchTimer.Start();
         }
 
         public string FilterText
