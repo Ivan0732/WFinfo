@@ -205,6 +205,12 @@ namespace WFInfo
 
         private void FilterChanged(object sender, RoutedEventArgs e)
         {
+            if (sender == completed) incomplete.IsChecked = true;
+            if (sender == incomplete) completed.IsChecked = true;
+
+            if (sender == mastered) unmastered.IsChecked = true;
+            if (sender == unmastered) mastered.IsChecked = true;
+
             StartSearchReapplyTimer();
         }
 
