@@ -147,7 +147,7 @@ namespace WFInfo
                 }
                 TreeNode primeType = primeTypes[typeName];
                 primeType.ResetFilter();
-                ApplyFilters();
+                ApplyFilters(primeType);
                 EqmtTree.Items.Add(primeType);
             }
             SortBoxChanged(null, null);
@@ -347,36 +347,34 @@ namespace WFInfo
             EqmtTree.Items.Refresh();
         }
 
-        private void ApplyFilters()
+        private void ApplyFilters(TreeNode type)
         {
-            foreach (TreeNode type in primeTypes.Select(x => x.Value))
-            {
-                if (vaulted.IsChecked == false) type.FilterOutVaulted(true);
-                if (unowned.IsChecked == false) type.FilterOutUnowned();
-                if (completed.IsChecked == false) type.FilterOutCompleted();
-                if (incomplete.IsChecked == false) type.FilterOutIncomplete();
-                if (mastered.IsChecked == false) type.FilterOutMastered();
-                if (unmastered.IsChecked == false) type.FilterOutUnmastered();
+            if (vaulted.IsChecked == false) type.FilterOutVaulted(true);
+            if (unowned.IsChecked == false) type.FilterOutUnowned();
+            if (completed.IsChecked == false) type.FilterOutCompleted();
+            if (incomplete.IsChecked == false) type.FilterOutIncomplete();
+            if (mastered.IsChecked == false) type.FilterOutMastered();
+            if (unmastered.IsChecked == false) type.FilterOutUnmastered();
 
-                if (warframes.IsChecked == false) type.FilterOutEquipment("Warframes");
-                if (primary.IsChecked == false) type.FilterOutEquipment("Primary");
-                if (secondary.IsChecked == false) type.FilterOutEquipment("Secondary");
-                if (melee.IsChecked == false) type.FilterOutEquipment("Melee");
-                if (archwing.IsChecked == false) type.FilterOutEquipment("Archwing");
-                if (companion.IsChecked == false) type.FilterOutEquipment("Companion");
-            }
+            if (warframes.IsChecked == false) type.FilterOutEquipment("Warframes");
+            if (primary.IsChecked == false) type.FilterOutEquipment("Primary");
+            if (secondary.IsChecked == false) type.FilterOutEquipment("Secondary");
+            if (melee.IsChecked == false) type.FilterOutEquipment("Melee");
+            if (archwing.IsChecked == false) type.FilterOutEquipment("Archwing");
+            if (companion.IsChecked == false) type.FilterOutEquipment("Companion");
         }
 
         private void ReapplyFilters()
         {
-            foreach (KeyValuePair<string, TreeNode> primeType in primeTypes)
-                primeType.Value.ResetFilter();
-
-            ApplyFilters();
+            foreach (TreeNode primeType in primeTypes.Values)
+            {
+                primeType.ResetFilter();
+                ApplyFilters(primeType);
+            }
 
             if (searchText != null && searchText.Length != 0)
-                foreach (KeyValuePair<string, TreeNode> primeType in primeTypes)
-                    primeType.Value.FilterSearchText(searchText, false, true);
+                foreach (TreeNode primeType in primeTypes.Values)
+                    primeType.FilterSearchText(searchText, false, true);
 
             RefreshVisibleRelics();
         }
