@@ -39,9 +39,9 @@ namespace WFInfo
         private bool _hideVaulted = true;
         private readonly List<TreeNode> _rawRelicNodes = new List<TreeNode>();
 
-        public static DispatcherTimer searchTimer;
+        public DispatcherTimer searchTimer;
 
-        private static void StartSearchReapplyTimer()
+        private void StartSearchReapplyTimer()
         {
             searchTimer.Stop();
             searchTimer.Start();

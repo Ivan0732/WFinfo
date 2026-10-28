@@ -20,7 +20,7 @@ namespace WFInfo
         private bool searchActive = false;
         private bool showAllEqmt = false;
         private int searchTimerDurationMS = 500;
-        public static DispatcherTimer searchTimer;
+        public DispatcherTimer searchTimer;
         public static string[] searchText;
         public static EquipmentWindow INSTANCE;
 
@@ -211,7 +211,7 @@ namespace WFInfo
         /// <summary>
         /// Starts a timer to wait to apply changes to filters on search bar
         /// </summary>
-        private static void StartSearchReapplyTimer()
+        private void StartSearchReapplyTimer()
         {
             searchTimer.Stop();
             searchTimer.Start();
