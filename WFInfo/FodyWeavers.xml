@@ -3,5 +3,4 @@
            Unmanaged64Assemblies="Tesseract50|leptonica-1.82.0" 
            Unmanaged32Assemblies="Tesseract50|leptonica-1.82.0">
   </Costura>
-  <PropertyChanged />
 </Weavers>
